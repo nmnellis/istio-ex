@@ -22,7 +22,7 @@ var (
 func DeployEchos(deploymentCtx *common.DeploymentContext) resource.SetupFn {
 	return func(ctx resource.Context) error {
 		if deploymentCtx == nil {
-			deploymentCtx = &common.DeploymentContext{}
+			*deploymentCtx = common.DeploymentContext{}
 		}
 		echoCtx := &common.EchoDeploymentContext{}
 
@@ -42,6 +42,7 @@ func DeployEchos(deploymentCtx *common.DeploymentContext) resource.SetupFn {
 		}
 
 		echoCtx.Deployments = apps
+		deploymentCtx.EchoContext = echoCtx
 		return nil
 	}
 }
@@ -80,7 +81,7 @@ func deployApplications(ctx resource.Context, echoCtx *common.EchoDeploymentCont
 	return apps, nil
 }
 
-func createNamespaces(ctx resource.Context,  echoCtx *common.EchoDeploymentContext) error {
+func createNamespaces(ctx resource.Context, echoCtx *common.EchoDeploymentContext) error {
 	var err error
 
 	if echoCtx.AppNamespace, err = namespace.New(ctx, namespace.Config{Prefix: "app", Inject: true}); err != nil {
@@ -173,6 +174,7 @@ func newEchoConfig(service string, ns namespace.Instance, cluster cluster.Cluste
 				Name:     "http",
 				Protocol: protocol.HTTP,
 				// We use a port > 1024 to not require root
+				ServicePort:  8090,
 				InstancePort: 8090,
 			},
 			{

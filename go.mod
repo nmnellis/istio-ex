@@ -13,6 +13,7 @@ require (
 	golang.org/x/tools v0.1.0 // indirect
 	gopkg.in/yaml.v3 v3.0.0-20200615113413-eeeca48fe776 // indirect
 	istio.io/istio v0.0.0-20210211212916-be8d7d33ae67
+	istio.io/pkg v0.0.0-20201230223204-2d0a1c8bd9e5
 	k8s.io/api v0.20.2
 	k8s.io/apimachinery v0.20.2
 )

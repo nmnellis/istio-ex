@@ -15,7 +15,9 @@ type DeploymentContext struct {
 
 type EchoDeploymentContext struct {
 	Deployments echo.Instances
-	Namespace namespace.Instance
+	AppNamespace namespace.Instance
+	SubsetNamespace namespace.Instance
+	NoMeshNamespace namespace.Instance
 }
 
 func IstioSetupFunc(operatorFile string) func(ctx resource.Context, cfg *istio.Config) {
